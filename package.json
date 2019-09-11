@@ -1,11 +1,8 @@
 {
-    "name": "serverless",
+    "name": "netlify-faunadb",
     "version": "1.0.0",
     "description": "",
     "main": "index.js",
-    "directo-ries": {
-        "doc": "docs"
-    },
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "netlify:server": "netlify-lambda serve functions",
