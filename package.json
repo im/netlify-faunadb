@@ -5,8 +5,8 @@
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "netlify:server": "netlify-lambda serve functions",
-        "netlify:build": "netlify-lambda build functions",
+        "netlify:server": "netlify-lambda serve functions  -c ./webpack.config.js",
+        "netlify:build": "netlify-lambda build functions  -c ./webpack.config.js",
         "app:serve": "vue-cli-service serve",
         "app:build": "vue-cli-service build",
         "start": "npm-run-all --parallel app:serve netlify:server",
