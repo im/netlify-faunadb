@@ -1,6 +1,6 @@
 exports.handler = (event, context, callback) => {
-    return callback(null, {
+    callback(null, {
         statusCode: 200,
-        body: JSON.stringify({name : '111'})
-    })
+        body: "Hello, World"
+    });
 }
