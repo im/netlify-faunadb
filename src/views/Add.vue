@@ -1,35 +1,69 @@
 <template>
     <div class="add-box">
-       <a-form :layout="formLayout.layout">
-            <a-form-item label="Field A" :label-col="formLayout.labelCol"
-        :wrapper-col="formLayout.wrapperCol">
-                <a-input placeholder="input placeholder" />
-            </a-form-item>
-            <a-form-item label="Field A" :label-col="formLayout.labelCol"
-        :wrapper-col="formLayout.wrapperCol">
-                <a-input placeholder="input placeholder" />
+        <a-form :layout="formLayout.layout" :form="form" @submit="handleSubmit">
+            <a-form-item
+                label="标题"
+                :label-col="formLayout.labelCol"
+                :wrapper-col="formLayout.wrapperCol"
+            >
+                <a-input
+                    placeholder="请输入标题"
+                    v-decorator="[
+                'title',
+                { rules: [{ required: true, message: '请输入标题!' }] }
+                ]"
+                />
             </a-form-item>
             <a-form-item
-            :label-col="formLayout.labelCol"
-            :wrapper-col="formLayout.wrapperCol"
-            label="Success"
-            has-feedback
-            validate-status="success"
+                :label-col="formLayout.labelCol"
+                :wrapper-col="formLayout.wrapperCol"
+                label="时间"
             >
-                <a-date-picker style="width: 100%" />
+                <a-date-picker
+                    v-decorator="[
+                'time',
+                { rules: [{ required: true, message: '请选择时间!' }] }
+                ]"
+                    placeholder="请选择时间"
+                />
             </a-form-item>
             <a-form-item
-            :label-col="formLayout.labelCol"
-            :wrapper-col="formLayout.wrapperCol"
-            label="Success"
-            has-feedback
-            validate-status="success"
+                :label-col="formLayout.labelCol"
+                :wrapper-col="formLayout.wrapperCol"
+                label="标签"
             >
-                <a-textarea placeholder="Autosize height with minimum and maximum number of lines" :autosize="{ minRows: 2, maxRows: 6 }" />
+                <a-select
+                    mode="multiple"
+                    placeholder="请选择标签"
+                    v-decorator="[
+                'tags',
+                { rules: [{ required: true, message: '请选择标签!' }] }
+                ]"
+                    style="width: 200px"
+                >
+                    <a-select-option v-for="item in tagList" :key="item">{{item}}</a-select-option>
+                </a-select>
             </a-form-item>
+            <a-form-item
+                :label-col="formLayout.labelCol"
+                :wrapper-col="formLayout.wrapperCol"
+                label="内容"
+            >
+                <a-textarea
+                    v-decorator="[
+                'content',
+                { rules: [{ required: true, message: '请输入内容!' }] }
+                ]"
+                    placeholder="请输入内容"
+                    :autosize="{ minRows: 2, maxRows: 6 }"
+                />
+            </a-form-item>
+            <a-form-item :wrapper-col="{ span: 12, offset: 5 }">
+                <a-button type="primary" html-type="submit">提交</a-button>
+            </a-form-item>
+        </a-form>
 
-           
-       </a-form>
+        {{JSON.stringify(res)}}
     </div>
 </template>
 <script lang="ts">
@@ -37,7 +71,7 @@ import axios from 'axios'
 import { Component, Vue } from 'vue-property-decorator'
 @Component({})
 export default class Add extends Vue {
-    formLayout:any = {
+    formLayout: any = {
         layout: 'horizontal',
         wrapperCol: {
             span: 20
@@ -45,6 +79,21 @@ export default class Add extends Vue {
         labelCol: {
             span: 4
         }
+    }
+    tagList: Array<String> = ['js', 'css', 'node', 'java']
+    res:any = {}
+    beforeCreate() {
+        this.form = this.$form.createForm(this)
+    }
+
+    handleSubmit(e: any) {
+        e.preventDefault()
+        this.form.validateFields((err: any, values: any) => {
+            if (!err) {
+                console.log('Received values of form: ', values)
+                this.res = values;
+            }
+        })
     }
 }
 </script>
