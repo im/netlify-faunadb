@@ -9,7 +9,7 @@ if (!process.env.FAUNADB_SECRET) {
 
 function initFaunaDB () {
     const client = new faunadb.Client({
-        secret: 'fnADYBQA19ACD82MoNTqoTOTxFZUvFjDU3IQh2Lr'
+        secret: process.env.FAUNADB_SECRET
     })
 
     client.query(q.CreateCollection({ name: 'posts' }))
