@@ -5,11 +5,11 @@
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "netlify:server": "netlify-lambda serve functions  -c ./webpack.config.js",
+        "netlify:serve": "netlify-lambda serve functions  -c ./webpack.config.js",
         "netlify:build": "netlify-lambda build functions  -c ./webpack.config.js",
         "app:serve": "vue-cli-service serve",
         "app:build": "vue-cli-service build",
-        "start": "npm-run-all --parallel app:serve netlify:server",
+        "start": "npm-run-all --parallel app:serve netlify:serve",
         "build": "npm-run-all --parallel app:build netlify:build"
     },
     "keywords": [],
@@ -20,14 +20,16 @@
         "axios": "^0.19.0",
         "chalk": "^2.4.2",
         "core-js": "^2.6.5",
+        "dayjs": "^1.8.16",
+        "faunadb": "^2.8.0",
         "moment": "^2.24.0",
+        "netlify-lambda": "^1.6.3",
+        "npm-run-all": "^4.1.5",
         "vue": "^2.6.10",
         "vue-class-component": "^7.0.2",
         "vue-property-decorator": "^8.1.0",
         "vue-router": "^3.0.3",
-        "vuex": "^3.0.1",
-        "netlify-lambda": "^1.6.3",
-        "npm-run-all": "^4.1.5"
+        "vuex": "^3.0.1"
     },
     "devDependencies": {
         "@vue/cli-plugin-babel": "^3.10.0",

@@ -17,19 +17,6 @@
             <a-form-item
                 :label-col="formLayout.labelCol"
                 :wrapper-col="formLayout.wrapperCol"
-                label="时间"
-            >
-                <a-date-picker
-                    v-decorator="[
-                'time',
-                { rules: [{ required: true, message: '请选择时间!' }] }
-                ]"
-                    placeholder="请选择时间"
-                />
-            </a-form-item>
-            <a-form-item
-                :label-col="formLayout.labelCol"
-                :wrapper-col="formLayout.wrapperCol"
                 label="标签"
             >
                 <a-select
@@ -62,8 +49,6 @@
                 <a-button type="primary" html-type="submit">提交</a-button>
             </a-form-item>
         </a-form>
-
-        {{JSON.stringify(res)}}
     </div>
 </template>
 <script lang="ts">
@@ -81,17 +66,29 @@ export default class Add extends Vue {
         }
     }
     tagList: Array<String> = ['js', 'css', 'node', 'java']
-    res:any = {}
+    res: any = {}
     beforeCreate() {
         this.form = this.$form.createForm(this)
+    }
+
+    async addPost(values: Object) {
+        const res = await axios.post(
+            `/.netlify/functions/addPost/`,
+            JSON.stringify(values)
+        )
+        if (res.status === 200) {
+            this.$message.success('This is a message of success')
+            this.form.resetFields()
+        } else {
+            this.$message.error('This is a message of error')
+        }
     }
 
     handleSubmit(e: any) {
         e.preventDefault()
         this.form.validateFields((err: any, values: any) => {
             if (!err) {
-                console.log('Received values of form: ', values)
-                this.res = values;
+                this.addPost(values)
             }
         })
     }
