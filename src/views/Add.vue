@@ -77,7 +77,7 @@ export default class Add extends Vue {
             JSON.stringify(values)
         )
         if (res.status === 200) {
-            this.$message.success('This is a message of success')
+            this.$message.success('创建成功', 1)
             this.form.resetFields()
         } else {
             this.$message.error('This is a message of error')

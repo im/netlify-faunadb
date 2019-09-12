@@ -12,7 +12,7 @@ exports.handler = (event, context, callback) => {
             body: JSON.stringify(ret)
         })
     }).catch(error => {
-        callback(null, {
+        return callback(null, {
             statusCode: 500,
             body: JSON.stringify(error)
         })
