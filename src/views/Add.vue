@@ -20,7 +20,7 @@
                 label="标签"
             >
                 <a-select
-                    mode="multiple"
+                    mode="tags"
                     placeholder="请选择标签"
                     v-decorator="[
                 'tags',
